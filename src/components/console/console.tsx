@@ -6,8 +6,7 @@ interface IConsoleState {
 
 export default class Console extends React.Component<{}, IConsoleState> {
 
-    // private static INTERVAL: number = 2500;
-    // private RETRY_WAIT: number = 2500;
+    private SOCKET_RETRY: number = 1000;
 
     private intl: Intl.NumberFormat = new Intl.NumberFormat('nb-NO', { maximumFractionDigits: 1 })
     private socket: WebSocket;
@@ -19,21 +18,7 @@ export default class Console extends React.Component<{}, IConsoleState> {
             consoleData: null
         }
 
-        // this.getData();
-
-        this.socket = new WebSocket('ws://localhost:800');
-        console.log(this.socket);
-        this.socket.addEventListener('open', (test: any) => {
-            console.log(test);
-        });
-        this.socket.addEventListener('message', (message: MessageEvent) => {
-            if (message && message.data) {
-                const consoleData: IConsoleData = JSON.parse(message.data);
-                if (consoleData && consoleData.dateTime) {
-                    this.setState({consoleData});
-                }
-            }
-        });
+        this.newSocket();
 
     }
 
@@ -66,27 +51,39 @@ export default class Console extends React.Component<{}, IConsoleState> {
         return null;
     }
 
-    // private getData() {
-    //     fetch('http://localhost:8080/api/realtime').then((response: Response) => {
-    //         response.text().then(text => {
-    //             console.log(text);
-    //             if (text) {
-    //                 const data: IConsoleData = JSON.parse(text);
-    //                 if (data) {
-    //                     this.setState({
-    //                         consoleData: data
-    //                     });
-    //                 }
-    //             }
-    //             setTimeout(() => this.getData(), Console.INTERVAL);
-    //             this.RETRY_WAIT = Console.INTERVAL;
-    //         });
-    //     }).catch(error => {
-    //         console.error(error);
-    //         setTimeout(() => this.getData(), this.RETRY_WAIT);
-    //         this.RETRY_WAIT += this.RETRY_WAIT;
-    //     })
-    // }
+    
+    private async newSocket() {
+
+        console.log('newSocket');
+
+        this.socket = new WebSocket('ws://localhost:800');
+
+        this.socket.addEventListener('open', (test: any) => {
+            this.SOCKET_RETRY = 1000;
+        });
+
+        this.socket.addEventListener('error', (event: CloseEvent) => {
+            console.log('socket error');
+        });
+
+        this.socket.addEventListener('close', (event: CloseEvent) => {
+            setTimeout(() => {
+                this.newSocket();
+                this.SOCKET_RETRY += 1000;
+            }, this.SOCKET_RETRY);
+        });
+
+        this.socket.addEventListener('message', (message: MessageEvent) => {
+            // console.log(message);
+            if (message && message.data) {
+                const consoleData: IConsoleData = JSON.parse(message.data);
+                if (consoleData && consoleData.dateTime) {
+                    this.setState({consoleData});
+                }
+            }
+        });
+
+    }
 
 }
 
