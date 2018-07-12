@@ -1,8 +1,7 @@
 import * as React from 'react';
 
-interface IConsoleState {
-    consoleData: IConsoleData
-};
+import IConsoleData from './console-data';
+import IConsoleState from './console.state';
 
 export default class Console extends React.Component<{}, IConsoleState> {
 
@@ -85,17 +84,4 @@ export default class Console extends React.Component<{}, IConsoleState> {
 
     }
 
-}
-
-interface IConsoleData {
-    barometer?: number;
-    dateTime?: number;
-    dayRain?: number;
-    heatindex?: number;
-    outHumidity?: number;
-    outTemp?: number;
-    windDir?: number | null;
-    windGust?: number;
-    windGustDir?: number | null;
-    windSpeed?: number;
 }
