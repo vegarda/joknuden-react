@@ -1,7 +1,13 @@
 import * as React from 'react';
 
+import 'console.scss';
+
 import IConsoleData from './console-data';
 import IConsoleState from './console.state';
+
+import Webcam from './webcam/webcam';
+import WindCompass from './wind-compass/wind-compass';
+import WindInfo from './wind-info/wind-info';
 
 export default class Console extends React.Component<{}, IConsoleState> {
 
@@ -24,25 +30,23 @@ export default class Console extends React.Component<{}, IConsoleState> {
     public render() {
         if (this.state.consoleData) {
             return (
-                <div>
-                    <div>
+                <div className="console-container">
+                    <div className="console-column">
+                        <span>{ this.state.consoleData.outHumidity } %</span>
+                        <span>{ this.state.consoleData.dayRain } mm</span>
                         <span>{ (new Date(this.state.consoleData.dateTime * 1000)).toLocaleTimeString() }</span>
                     </div>
-                    <div>
+                    <div className="console-column">
                         <span>{ this.intl.format(this.state.consoleData.outTemp) } °C</span>
                     </div>
-                    <div>
-                        <span>{ this.state.consoleData.outHumidity } %</span>
+                    <div className="console-column">
+                        <WindCompass consoleData={this.state.consoleData} />
                     </div>
-                    <div>
-                        <span>{ this.state.consoleData.dayRain } mm</span>
+                    <div className="console-column">
+                        <WindInfo consoleData={this.state.consoleData} />
                     </div>
-                    <div>
-                        <span>{ this.state.consoleData.windDir } °</span>
-                    </div>
-                    <div>
-                        <span>{ this.intl.format(this.state.consoleData.windSpeed) } m/s</span>
-                        <span> ({ this.intl.format(this.state.consoleData.windGust) })</span>
+                    <div className="console-column">
+                        <Webcam />
                     </div>
                 </div>
             )

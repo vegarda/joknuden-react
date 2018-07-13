@@ -1,6 +1,8 @@
 import * as React from 'react';
 import './App.css';
 
+import 'weather-icons/sass/weather-icons.scss';
+
 import Console from './components/console/console';
 import Footer from './components/footer/footer';
 import Header from './components/header/header';
