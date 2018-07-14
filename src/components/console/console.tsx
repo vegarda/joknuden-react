@@ -32,17 +32,17 @@ export default class Console extends React.Component<{}, IConsoleState> {
             return (
                 <div className="console-container">
                     <div className="console-column">
-                        <div className="data">
+                        <div className="data-row">
                             <i className="wi wi-barometer" />
                             <span className="data-value">{ this.intl.format(this.state.consoleData.barometer) }</span>
                             <span className="data-unit">hPa</span>
                         </div>
-                        <div className="data">
+                        <div className="data-row">
                             <i className="wi wi-humidity" />
                             <span className="data-value">{ this.state.consoleData.outHumidity }</span>
                             <span className="data-unit">%</span>
                         </div>
-                        <div className="data">
+                        <div className="data-row">
                             <i className="wi wi-rain" />
                             <span className="data-value">{ this.state.consoleData.dayRain }</span>
                             <span className="data-unit">mm</span>
@@ -50,7 +50,7 @@ export default class Console extends React.Component<{}, IConsoleState> {
                         <span className="time">{ (new Date(this.state.consoleData.dateTime * 1000)).toLocaleTimeString() }</span>
                     </div>
                     <div className="console-column">
-                        <div className="thermometer">
+                        <div className="data-row thermometer">
                             <i className="wi wi-thermometer" />
                             <span>{ this.intl.format(this.state.consoleData.outTemp) } °C</span>
                         </div>
@@ -58,9 +58,7 @@ export default class Console extends React.Component<{}, IConsoleState> {
                     <div className="console-column">
                         <WindCompass consoleData={this.state.consoleData} />
                     </div>
-                    <div className="console-column">
-                        <WindInfo consoleData={this.state.consoleData} />
-                    </div>
+                    <WindInfo consoleData={this.state.consoleData} />
                     <div className="console-column">
                         <Webcam />
                     </div>

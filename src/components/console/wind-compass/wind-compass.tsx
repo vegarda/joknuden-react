@@ -2,8 +2,6 @@ import * as React from 'react';
 
 import IWindCompassProps from './wind-compass.props';
 
-import { SvgProperties } from 'csstype';
-
 export default class WindCompass extends React.Component<IWindCompassProps, {}> {
 
     private rotateDir: number;

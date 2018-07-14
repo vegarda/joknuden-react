@@ -15,17 +15,19 @@
     height: 10em;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     flex-direction: column;
     position: relative;
 }
 
-.data {
+.data-row {
     font-size: 1.5em;
-    margin-bottom: 0.5em;
+    margin: 0.25em 0;
     width: 8em;
     display: flex;
     justify-content: space-between;
+    height: 1.25em;
+    line-height: 1.25em;
 
     .data-unit {
         display: inline-flex;
@@ -37,6 +39,7 @@
     font-size: 2em;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .time {
