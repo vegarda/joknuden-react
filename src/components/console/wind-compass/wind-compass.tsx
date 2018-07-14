@@ -39,41 +39,41 @@ export default class WindCompass extends React.Component<IWindCompassProps, {}> 
             <div className="wind-compass-container">
                 <svg viewBox="0 0 200 200" style={this.svgStyle}>
 
-                    <path d="M 100 10 L 100 20" transform="rotate(0 100 100)  translate(0 10)" stroke="black" strokeWidth="4" />
-                    <path d="M 100 0  L 100 20" transform="rotate(11.25 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(22.5 100 100)  translate(0 10)" stroke="black" strokeWidth="3" />
-                    <path d="M 100 0  L 100 20" transform="rotate(33.75 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(45 100 100)  translate(0 10)" stroke="black" strokeWidth="2" />
-                    <path d="M 100 0  L 100 20" transform="rotate(56.25 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(67.5 100 100)  translate(0 10)" stroke="black" strokeWidth="3" />
-                    <path d="M 100 0  L 100 20" transform="rotate(78.75 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(0 100 100)  translate(0 5)" stroke="black" strokeWidth="4" />
+                    <path d="M 100 0  L 100 20" transform="rotate(11.25 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(22.5 100 100)  translate(0 5)" stroke="black" strokeWidth="3" />
+                    <path d="M 100 0  L 100 20" transform="rotate(33.75 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(45 100 100)  translate(0 5)" stroke="black" strokeWidth="2" />
+                    <path d="M 100 0  L 100 20" transform="rotate(56.25 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(67.5 100 100)  translate(0 5)" stroke="black" strokeWidth="3" />
+                    <path d="M 100 0  L 100 20" transform="rotate(78.75 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
 
-                    <path d="M 100 10 L 100 20" transform="rotate(90 100 100)  translate(0 10)" stroke="black" strokeWidth="4" />
-                    <path d="M 100 0  L 100 20" transform="rotate(101.25 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(112.5 100 100)  translate(0 10)" stroke="black" strokeWidth="3" />
-                    <path d="M 100 0  L 100 20" transform="rotate(123.75 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(135 100 100)  translate(0 10)" stroke="black" strokeWidth="2" />
-                    <path d="M 100 0  L 100 20" transform="rotate(146.25 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(157.5 100 100)  translate(0 10)" stroke="black" strokeWidth="3" />
-                    <path d="M 100 0  L 100 20" transform="rotate(168.75 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(90 100 100)  translate(0 5)" stroke="black" strokeWidth="4" />
+                    <path d="M 100 0  L 100 20" transform="rotate(101.25 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(112.5 100 100)  translate(0 5)" stroke="black" strokeWidth="3" />
+                    <path d="M 100 0  L 100 20" transform="rotate(123.75 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(135 100 100)  translate(0 5)" stroke="black" strokeWidth="2" />
+                    <path d="M 100 0  L 100 20" transform="rotate(146.25 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(157.5 100 100)  translate(0 5)" stroke="black" strokeWidth="3" />
+                    <path d="M 100 0  L 100 20" transform="rotate(168.75 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
 
-                    <path d="M 100 10 L 100 20" transform="rotate(180 100 100)  translate(0 10)" stroke="black" strokeWidth="4" />
-                    <path d="M 100 0  L 100 20" transform="rotate(191.25 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(202.5 100 100)  translate(0 10)" stroke="black" strokeWidth="3" />
-                    <path d="M 100 0  L 100 20" transform="rotate(213.75 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(225 100 100)  translate(0 10)" stroke="black" strokeWidth="2" />
-                    <path d="M 100 0  L 100 20" transform="rotate(236.25 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(247.5 100 100)  translate(0 10)" stroke="black" strokeWidth="3" />
-                    <path d="M 100 0  L 100 20" transform="rotate(258.75 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(180 100 100)  translate(0 5)" stroke="black" strokeWidth="4" />
+                    <path d="M 100 0  L 100 20" transform="rotate(191.25 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(202.5 100 100)  translate(0 5)" stroke="black" strokeWidth="3" />
+                    <path d="M 100 0  L 100 20" transform="rotate(213.75 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(225 100 100)  translate(0 5)" stroke="black" strokeWidth="2" />
+                    <path d="M 100 0  L 100 20" transform="rotate(236.25 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(247.5 100 100)  translate(0 5)" stroke="black" strokeWidth="3" />
+                    <path d="M 100 0  L 100 20" transform="rotate(258.75 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
 
-                    <path d="M 100 10 L 100 20" transform="rotate(270 100 100)  translate(0 10)" stroke="black" strokeWidth="4" />
-                    <path d="M 100 0  L 100 20" transform="rotate(281.25 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(292.5 100 100)  translate(0 10)" stroke="black" strokeWidth="3" />
-                    <path d="M 100 0  L 100 20" transform="rotate(303.75 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(315 100 100)  translate(0 10)" stroke="black" strokeWidth="2" />
-                    <path d="M 100 0  L 100 20" transform="rotate(326.25 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
-                    <path d="M 100 10 L 100 20" transform="rotate(337.5 100 100)  translate(0 10)" stroke="black" strokeWidth="3" />
-                    <path d="M 100 0  L 100 20" transform="rotate(348.75 100 100)  translate(0 15)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(270 100 100)  translate(0 5)" stroke="black" strokeWidth="4" />
+                    <path d="M 100 0  L 100 20" transform="rotate(281.25 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(292.5 100 100)  translate(0 5)" stroke="black" strokeWidth="3" />
+                    <path d="M 100 0  L 100 20" transform="rotate(303.75 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(315 100 100)  translate(0 5)" stroke="black" strokeWidth="2" />
+                    <path d="M 100 0  L 100 20" transform="rotate(326.25 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
+                    <path d="M 100 0 L 100 10" transform="rotate(337.5 100 100)  translate(0 5)" stroke="black" strokeWidth="3" />
+                    <path d="M 100 0  L 100 20" transform="rotate(348.75 100 100)  translate(0 0)" stroke="black" strokeWidth="1" />
 
                     <polygon stroke="black" style={this.polygonStyle} className="arrow" points="85,120 100,75 115,120 100,110" transform={"rotate(" + this.rotateDir + ")"} transform-origin="center" strokeWidth="5" fill="black"/>
 

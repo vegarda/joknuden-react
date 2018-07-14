@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import 'console.scss';
+import './console.scss';
 
 import IConsoleData from './console-data';
 import IConsoleState from './console.state';
@@ -32,12 +32,28 @@ export default class Console extends React.Component<{}, IConsoleState> {
             return (
                 <div className="console-container">
                     <div className="console-column">
-                        <span>{ this.state.consoleData.outHumidity } %</span>
-                        <span>{ this.state.consoleData.dayRain } mm</span>
-                        <span>{ (new Date(this.state.consoleData.dateTime * 1000)).toLocaleTimeString() }</span>
+                        <div className="data">
+                            <i className="wi wi-barometer" />
+                            <span className="data-value">{ this.intl.format(this.state.consoleData.barometer) }</span>
+                            <span className="data-unit">hPa</span>
+                        </div>
+                        <div className="data">
+                            <i className="wi wi-humidity" />
+                            <span className="data-value">{ this.state.consoleData.outHumidity }</span>
+                            <span className="data-unit">%</span>
+                        </div>
+                        <div className="data">
+                            <i className="wi wi-rain" />
+                            <span className="data-value">{ this.state.consoleData.dayRain }</span>
+                            <span className="data-unit">mm</span>
+                        </div>
+                        <span className="time">{ (new Date(this.state.consoleData.dateTime * 1000)).toLocaleTimeString() }</span>
                     </div>
                     <div className="console-column">
-                        <span>{ this.intl.format(this.state.consoleData.outTemp) } °C</span>
+                        <div className="thermometer">
+                            <i className="wi wi-thermometer" />
+                            <span>{ this.intl.format(this.state.consoleData.outTemp) } °C</span>
+                        </div>
                     </div>
                     <div className="console-column">
                         <WindCompass consoleData={this.state.consoleData} />
