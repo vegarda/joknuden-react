@@ -99,7 +99,7 @@ export default class WindInfo extends React.Component<IWindInfoProps, {}> {
         return (
             <div className="wind-info-container console-column">
                 <span className="beaufort">{ this.getBeaufort() }</span>
-                <span className="direction">{ this.getDirection() } </span>
+                <span className="direction">{ this.getDirection() } ({ this.props.consoleData.windDir } °)</span>
                 <div className="data-row wind-speed">
                     <i className="wi wi-strong-wind" />
                     <span className="data-value">{ this.intl.format(this.props.consoleData.windSpeed) }</span>
@@ -131,8 +131,8 @@ export default class WindInfo extends React.Component<IWindInfoProps, {}> {
     }
 
     private getDirection() {
-        let i = this.props.consoleData.windDir % 16;
-        if (i === 16) {
+        let i = Math.floor((this.props.consoleData.windDir + 11.25) / 22.5);
+        if (i > 15) {
             i = 0;
         }
         return this.fromString + ' ' + this.windPrincipals.long[this.language][i];

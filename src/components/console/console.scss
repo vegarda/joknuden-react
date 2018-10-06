@@ -1,18 +1,14 @@
 .console-container {
-    width: calc(100vw - 2em);
-    margin: 1em;
-    padding: 1em;
-    background-color: chartreuse;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
 }
 
 .console-column {
     flex: none;
     width: 20%;
-    height: 10em;
+    height: 12em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,6 +39,7 @@
 }
 
 .time {
-    bottom: -0.5em;
+    bottom: 0;
     position: absolute;
+    color: rgba(255,255,255, 0.3)
 }

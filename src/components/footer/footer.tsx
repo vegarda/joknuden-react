@@ -5,7 +5,7 @@ import './footer.scss';
 export default class Footer extends React.Component {
     public render() {
         return (
-            <footer>footer</footer>
+            <footer className="footer-container">footer</footer>
         )
     }
 }

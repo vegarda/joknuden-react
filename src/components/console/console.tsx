@@ -30,7 +30,7 @@ export default class Console extends React.Component<{}, IConsoleState> {
     public render() {
         if (this.state.consoleData) {
             return (
-                <div className="console-container">
+                <div className="console-container panel">
                     <div className="console-column">
                         <div className="data-row">
                             <i className="wi wi-barometer" />
