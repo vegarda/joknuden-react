@@ -5,15 +5,13 @@ body {
 }
 
 html {
-  background-color: red;
+  background-color: #fafafa;
 }
 
 html,
 body,
 #root {
   min-height: 100vh;
-  max-width: 100vw;
-  overflow: hidden;
 }
 
 * {
