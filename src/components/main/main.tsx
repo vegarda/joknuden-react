@@ -2,23 +2,25 @@ import * as React from 'react';
 
 import './main.scss';
 
+import Console from '../console/console';
 import Panel from './panel/panel';
-
-import SimpleChart from './../charts/simple-chart/simple-chart';
-
+import HistoryChart from '../charts/history-chart/history-chart';
 
 export default class Main extends React.Component<{}, {}> {
 
-    // private intl: Intl.NumberFormat = new Intl.NumberFormat('nb-NO', { maximumFractionDigits: 1 });
 
     public render() {
         return (
             <main className="main-container">
                 <Panel>
-                    <SimpleChart />
+                    <Console />
+                </Panel>
+                <Panel>
+                    <HistoryChart />
                 </Panel>
             </main>
         )
     }
+
 
 }

@@ -15,7 +15,7 @@
 .console-column {
     flex: none;
     width: 20%;
-    height: 10em;
+    height: 12em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,6 +46,7 @@
 }
 
 .time {
-    bottom: -0.5em;
+    bottom: 0;
     position: absolute;
+    color: rgba(255,255,255, 0.3)
 }
