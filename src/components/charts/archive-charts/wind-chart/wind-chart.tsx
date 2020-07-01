@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styles from './wind-chart.scss';
+import svgStyles from './../../../../scss/_svg.scss';
 
 import * as d3 from 'd3';
 import { ArchiveChartData } from 'src/models/archive-chart-data.model';
@@ -112,18 +113,18 @@ export default class WindChart extends React.Component<ChartProps, {}> {
             //     .datum(this.props.chartOptions.chartData)
             //     .attr('d', windArea)
             //     // .style('fill', 'url(#outTempAreaGradient)')
-            //     .attr('class', 'area');
+            //     .attr('class', svgStyles['area']);
 
 
             g.append('path')
                 .datum(this.props.chartOptions.chartData)
                 .attr('d', windSpeedLine)
-                .attr('class', 'line');
+                .attr('class', svgStyles['line']);
 
             g.append('path')
                 .datum(this.props.chartOptions.chartData)
                 .attr('d', windGustLine)
-                .attr('class', 'line');
+                .attr('class', svgStyles['line']);
 
 
 
@@ -135,6 +136,8 @@ export default class WindChart extends React.Component<ChartProps, {}> {
                     .tickSizeOuter(0)
                 )
                 .style('shape-rendering', 'crispedges')
+                .selectAll('.tick')
+                .attr('class', svgStyles['tick'])
 
 
 

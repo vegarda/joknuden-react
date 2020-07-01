@@ -14,21 +14,26 @@ svg {
             color: purple;
         }
     }
+
     path {
+
         &.line {
             fill: none;
             stroke: #33333333;
             stroke-width: 2px;
         }
+
         &.area {
             fill: blue;
         }
+
         &.domain {
             fill: none;
             stroke: red;
             stroke-width: 1px;
             shape-rendering: crispEdges;
         }
+        
         &.arc {
             fill: green;
         }

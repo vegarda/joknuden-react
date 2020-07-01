@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styles from './rain-chart.scss';
+import svgStyles from './../../../../scss/_svg.scss';
 
 import * as d3 from 'd3';
 import { ChartProps } from 'src/models/chart-props.model';
@@ -119,7 +120,7 @@ export default class RainChart extends React.Component<ChartProps, {}> {
 
                 g.append('g')
                     .attr('transform', 'translate(' + (width) + ', 0)')
-                    .attr('class', 'rain-axis')
+                    .attr('class', svgStyles['rain-axis'])
                     .style('shape-rendering', 'crispedges')
                     .call(
                         d3.axisRight(rainAxis)
@@ -129,6 +130,7 @@ export default class RainChart extends React.Component<ChartProps, {}> {
                         .tickFormat(d => d + ' mm')
                     )
                     .selectAll('.tick')
+                    .attr('class', svgStyles['tick'])
                     .style('color', raintickColor);
 
 
@@ -144,7 +146,7 @@ export default class RainChart extends React.Component<ChartProps, {}> {
                 //     .attr('y1', d => height )
                 //     .attr('y2', d => 0 )
                 //     .attr('stroke', 'currentColor')
-                //     .attr('class', 'tick')
+                //     .attr('class', svgStyles['tick'])
 
 
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styles from './temperature-chart.scss';
+import svgStyles from './../../../../scss/_svg.scss';
 
 import * as d3 from 'd3';
 import { ArchiveChartData } from 'src/models/archive-chart-data.model';
@@ -106,12 +107,12 @@ export default class TemperatureChart extends React.Component<ChartProps, {}> {
                 .datum(this.props.chartOptions.chartData)
                 .attr('d', outTempArea)
                 .style('fill', 'url(#outTempAreaGradient)')
-                .attr('class', 'area');
+                .attr('class', svgStyles['area']);
 
             g.append('path')
                 .datum(this.props.chartOptions.chartData)
                 .attr('d', outTempLine)
-                .attr('class', 'line');
+                .attr('class', svgStyles['line']);
 
             // const tickColor = 'rgba(0, 0, 0, 0.2)';
             g.append('g')
@@ -122,6 +123,8 @@ export default class TemperatureChart extends React.Component<ChartProps, {}> {
                     .tickSizeOuter(0)
                 )
                 .style('shape-rendering', 'crispedges')
+                .selectAll('.tick')
+                .attr('class', svgStyles['tick'])
                 // .selectAll('.tick')
                 // .select('line')
                 // .style('color', tickColor)
@@ -131,7 +134,7 @@ export default class TemperatureChart extends React.Component<ChartProps, {}> {
                 .call(d3.axisBottom(xAxis));
 
             const tooltip = g.append('text').attr('text-anchor', 'middle');
-                // .attr("class", "tooltip")
+                // .attr("class", svgStyles["tooltip"])
 
             // const bisectDate = d3.bisector<ArchiveChartData, Date>(d => d.dateTime).left;
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styles from './barometer-chart.scss';
+import svgStyles from './../../../../scss/_svg.scss';
 
 import * as d3 from 'd3';
 import { ArchiveChartData } from 'src/models/archive-chart-data.model';
@@ -72,11 +73,13 @@ export default class BarometerChart extends React.Component<ChartProps, {}> {
             const barometerAxis = d3.scaleLinear().range([height, 0]);
             barometerAxis.domain([barometerMin, barometerMax]);
             g.append('g')
-            .attr('transform', 'translate(' + (width) + ', 0)')
-            .call(
-                d3.axisRight(barometerAxis)
-                .ticks(3)
-            );
+                .attr('transform', 'translate(' + (width) + ', 0)')
+                .call(
+                    d3.axisRight(barometerAxis)
+                    .ticks(3)
+                )
+                .selectAll('.tick')
+                .attr('class', svgStyles['tick'])
 
             const barometerLine = d3.line<ArchiveChartData>()
                 .curve(d3.curveCatmullRom)
@@ -86,7 +89,7 @@ export default class BarometerChart extends React.Component<ChartProps, {}> {
             g.append('path')
                 .datum(this.props.chartOptions.chartData)
                 .attr('d', barometerLine as any)
-                .attr('class', 'line');
+                .attr('class', svgStyles['line']);
 
 
             g.append('g')

@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import styles from './wind-velocity-chart.scss';
+import svgStyles from './../../../../scss/_svg.scss';
 
 import * as d3 from 'd3';
 
@@ -64,7 +65,7 @@ export default class WindVelocityChart extends React.Component<any, any> {
             .attr('viewBox', '0 0 ' + (width + margins.left + margins.right) + ' ' + (height + margins.top + margins.bottom));
 
             const g = svg.append('g')
-            .attr('class', 'test1')
+            .attr('class', svgStyles['test1'])
             .attr('transform', 'translate(' + ((width / 2) + margins.left) + ',' + ((height / 2) + margins.top) + ')');
 
 
@@ -78,7 +79,7 @@ export default class WindVelocityChart extends React.Component<any, any> {
                 .data(this.props.data)
                 .enter()
                 .append('path')
-                .attr('class', 'arc')
+                .attr('class', svgStyles['arc'])
                 .attr('d',
 
                     // d3.arc<number>()

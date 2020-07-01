@@ -51,7 +51,7 @@ export default class ArchiveCharts extends React.Component<{}, ArchiveChartsStat
     private async getHistoryData() {
         console.log('ArchiveCharts getHistoryData');
         try {
-            const response = await fetch('http://localhost:8080/api/archive/month/1');
+            const response = await fetch('http://localhost:8080/api/archive/month/5');
             console.log(response);
             const data: ArchiveData[] = await response.json();
             const chartData: ArchiveChartData[] = data.map((d: ArchiveData) => {
