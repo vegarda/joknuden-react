@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './barometer-chart.scss';
+import styles from './barometer-chart.scss';
 
 import * as d3 from 'd3';
 import { ArchiveChartData } from 'src/models/archive-chart-data.model';
@@ -22,8 +22,8 @@ export default class BarometerChart extends React.Component<ChartProps, {}> {
     public render() {
         console.log('BarometerChart render');
         return (
-            <div className="barometer-chart-container" ref={this.ref}>
-                <svg ref={this.svgRef} className='barometer-chart'/>
+            <div className={styles['barometer-chart-container']} ref={this.ref}>
+                <svg ref={this.svgRef} className={styles['barometer-chart']}/>
             </div>
         );
     }

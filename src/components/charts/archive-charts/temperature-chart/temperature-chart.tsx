@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './temperature-chart.scss';
+import styles from './temperature-chart.scss';
 
 import * as d3 from 'd3';
 import { ArchiveChartData } from 'src/models/archive-chart-data.model';
@@ -25,8 +25,8 @@ export default class TemperatureChart extends React.Component<ChartProps, {}> {
     public render() {
         console.log('TemperatureChart render');
         return (
-            <div className="temperature-chart-container" ref={this.ref}>
-                <svg ref={this.svgRef} className='temperature-chart'/>
+            <div className={styles['temperature-chart-container']} ref={this.ref}>
+                <svg ref={this.svgRef} className={styles['temperature-chart']}/>
             </div>
         );
     }

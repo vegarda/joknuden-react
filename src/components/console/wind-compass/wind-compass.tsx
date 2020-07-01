@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './wind-compass.scss';
+import styles from './wind-compass.scss';
 
 import IWindCompassProps from './wind-compass.props';
 
@@ -35,7 +35,7 @@ export default class WindCompass extends React.Component<IWindCompassProps, {}> 
         this.calculateRotateDir();
 
         return (
-            <div className="wind-compass-container">
+            <div className={styles['wind-compass-container']}>
                 <svg viewBox="0 0 200 200" style={this.svgStyle}>
 
                     <path d="M 100 0 L 100 10" transform="rotate(0 100 100)  translate(0 5)" stroke="currentColor" strokeWidth="4" />
@@ -74,7 +74,7 @@ export default class WindCompass extends React.Component<IWindCompassProps, {}> 
                     <path d="M 100 0 L 100 10" transform="rotate(337.5 100 100)  translate(0 5)" stroke="currentColor" strokeWidth="3" />
                     <path d="M 100 0  L 100 20" transform="rotate(348.75 100 100)  translate(0 0)" stroke="currentColor" strokeWidth="1" />
 
-                    <polygon stroke="currentColor" style={this.polygonStyle} className="arrow" points="85,120 100,75 115,120 100,110" transform={"rotate(" + this.rotateDir + ")"} transform-origin="center" strokeWidth="5" fill="currentColor"/>
+                    <polygon stroke="currentColor" style={this.polygonStyle} className={styles['arrow']} points="85,120 100,75 115,120 100,110" transform={"rotate(" + this.rotateDir + ")"} transform-origin="center" strokeWidth="5" fill="currentColor"/>
 
                 </svg>
             </div>

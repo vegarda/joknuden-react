@@ -11,10 +11,10 @@ const copyAssetsPlugin = new CopyWebpackPlugin({
 });
 
 const htmlWebpackPlugin = new HtmlWebpackPlugin({
-    hash: true,
-    filename: 'index.html',
-    title: 'joknuden',
-    template: './src/index.html',
+    // hash: true,
+    // filename: 'index.html',
+    // title: 'joknuden',
+    template: path.resolve(__dirname, 'src', 'index.html'),
     // chunks: ['joknuden'],
 });
 
@@ -26,17 +26,11 @@ const extractSass = new ExtractTextPlugin({
 
 
 const config = {
-    entry: './src/index.tsx',
+    entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
-        path: path.resolve(__dirname, './dist/'),
+        path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
     },
-    plugins: [
-        copyAssetsPlugin,
-        htmlWebpackPlugin,
-        extractSass,
-        new BundleAnalyzerPlugin(),
-    ],
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.json'],
     },
@@ -44,7 +38,7 @@ const config = {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'ts-loader',
+                use: ['ts-loader'],
             },
             {
                 test: /\.s(a|c)ss$/,
@@ -52,17 +46,37 @@ const config = {
                   'style-loader',
                   {
                     loader: 'css-loader',
-                    options: { modules: true }
+                    options: {
+                        modules: true,
+                        // modules: {
+                        //     // localIdentName: '[local]',
+                        //     mode: 'local',
+                        //     exportGlobals: true,
+                        //     localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                        //     context: path.resolve(__dirname, 'src'),
+                        //     hashPrefix: 'my-custom-hash',
+                        // },
+                    },
                   },
-                  'sass-loader'
-                ]
+                  'sass-loader',
+                ],
+            },
+            {
+                test: /\.html/,
+                use: ['html-loader'],
             },
             {
                 test: /\.(jpg|jpeg|gif|png|woff|woff2|eot|ttf|svg)$/,
-                loader: 'url-loader?limit=1024'
+                loader: 'url-loader?limit=1024',
             },
         ],
     },
+    plugins: [
+        // copyAssetsPlugin,
+        htmlWebpackPlugin,
+        // extractSass,
+        // new BundleAnalyzerPlugin(),
+    ],
 };
 
 module.exports = config;

@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import './archive-charts.scss';
+
 import Panel from './../../main/panel/panel';
 import BarometerChart from './barometer-chart/barometer-chart';
 import { ArchiveData } from 'src/models/archive-data.model';
@@ -49,7 +51,7 @@ export default class ArchiveCharts extends React.Component<{}, ArchiveChartsStat
     private async getHistoryData() {
         console.log('ArchiveCharts getHistoryData');
         try {
-            const response = await fetch('http://localhost:8080/api/archive/year/1');
+            const response = await fetch('http://localhost:8080/api/archive/month/1');
             console.log(response);
             const data: ArchiveData[] = await response.json();
             const chartData: ArchiveChartData[] = data.map((d: ArchiveData) => {

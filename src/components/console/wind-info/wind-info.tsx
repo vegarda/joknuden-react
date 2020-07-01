@@ -1,7 +1,7 @@
 import * as React from 'react';
 import IConsoleData from '../console-data';
 
-import './wind-info.scss';
+import styles from './wind-info.scss';
 
 interface IWindInfoProps {
     consoleData: IConsoleData
@@ -97,13 +97,13 @@ export default class WindInfo extends React.Component<IWindInfoProps, {}> {
     public render() {
 
         return (
-            <div className="wind-info-container console-column">
-                <span className="beaufort">{ this.getBeaufort() }</span>
-                <span className="direction">{ this.getDirection() } ({ this.props.consoleData.windDir } °)</span>
-                <div className="data-row wind-speed">
-                    <i className="wi wi-strong-wind" />
-                    <span className="data-value">{ this.intl.format(this.props.consoleData.windSpeed) }</span>
-                    <span className="data-unit">mps</span>
+            <div className={styles['wind-info-container console-column']}>
+                <span className={styles['beaufort']}>{ this.getBeaufort() }</span>
+                <span className={styles['direction']}>{ this.getDirection() } ({ this.props.consoleData.windDir } °)</span>
+                <div className={styles['data-row wind-speed']}>
+                    <i className={styles['wi wi-strong-wind']} />
+                    <span className={styles['data-value']}>{ this.intl.format(this.props.consoleData.windSpeed) }</span>
+                    <span className={styles['data-unit']}>mps</span>
                 </div>
                 { this.getGustingElement() }
             </div>
@@ -113,15 +113,15 @@ export default class WindInfo extends React.Component<IWindInfoProps, {}> {
     private getGustingElement() {
         if (this.props.consoleData.windGust > this.props.consoleData.windSpeed) {
             return (
-                <div className="data-row wind-gust">
-                    <i className="wi" />
-                    <span className="data-value">({ this.intl.format(this.props.consoleData.windGust) })</span>
-                    <span className="data-unit" />
+                <div className={styles['data-row wind-gust']}>
+                    <i className={styles['wi']} />
+                    <span className={styles['data-value']}>({ this.intl.format(this.props.consoleData.windGust) })</span>
+                    <span className={styles['data-unit']} />
                 </div>
             )
         }
         return (
-            <div className="data-row wind-gust" />
+            <div className={styles['data-row wind-gust']} />
         )
     }
 

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './rain-chart.scss';
+import styles from './rain-chart.scss';
 
 import * as d3 from 'd3';
 import { ChartProps } from 'src/models/chart-props.model';
@@ -22,8 +22,8 @@ export default class RainChart extends React.Component<ChartProps, {}> {
     public render() {
         console.log('RainChart render');
         return (
-            <div className="rain-chart-container" ref={this.ref}>
-                <svg ref={this.svgRef} className='rain-chart'/>
+            <div className={styles['rain-chart-container']} ref={this.ref}>
+                <svg ref={this.svgRef} className={styles['rain-chart']}/>
             </div>
         );
     }

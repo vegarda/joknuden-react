@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './wind-velocity-chart.scss';
+import styles from './wind-velocity-chart.scss';
 
 import * as d3 from 'd3';
 
@@ -22,8 +22,8 @@ export default class WindVelocityChart extends React.Component<any, any> {
     public render() {
         console.log('WindVelocityChart render');
         return (
-            <div className="wind-velocity-chart-container" ref={this.ref}>
-                <svg ref={this.svgRef} className='wind-velocity-chart'/>
+            <div className={styles['wind-velocity-chart-container']} ref={this.ref}>
+            <svg ref={this.svgRef} className={styles['wind-velocity-chart']}/>
             </div>
         );
     }
@@ -80,12 +80,13 @@ export default class WindVelocityChart extends React.Component<any, any> {
                 .append('path')
                 .attr('class', 'arc')
                 .attr('d',
-                    d3.arc<number>()
-                        .innerRadius(d => 0)
-                        .outerRadius((d, i, j) => y(d))
-                        .startAngle((d, i) => ((i * 2 * Math.PI) / 16))
-                        .endAngle((d, i) => (((i + 1) * 2 * Math.PI) / 16))
-                        .padAngle(Math.PI / 32)
+
+                    // d3.arc<number>()
+                    //     .innerRadius(d => 0)
+                    //     .outerRadius((d, i, j) => y(d))
+                    //     .startAngle((d, i) => ((i * 2 * Math.PI) / 16))
+                    //     .endAngle((d, i) => (((i + 1) * 2 * Math.PI) / 16))
+                    //     .padAngle(Math.PI / 32)
                 )
 
             var label = g.append("g")

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './main.scss';
+import styles from './main.scss';
 
 import Console from '../console/console';
 import Panel from './panel/panel';
@@ -15,7 +15,7 @@ export default class Main extends React.Component {
         console.log(consolePanel);
         console.log(Console);
         return (
-            <main className="main-container">
+            <main className={styles['main-container']}>
                 {/* <Panel>
                     <Console />
                 </Panel> */}

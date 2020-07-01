@@ -1,12 +1,12 @@
 import * as React from 'react';
 
-import './panel.scss';
+import styles from './panel.scss';
 
 export default class Panel extends React.Component<{}, {}> {
 
     public render() {
         return (
-            <div className="panel-container">
+            <div className={styles['panel-container']}>
                 { this.props.children }
             </div>
         )

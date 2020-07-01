@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import './wind-chart.scss';
+import styles from './wind-chart.scss';
 
 import * as d3 from 'd3';
 import { ArchiveChartData } from 'src/models/archive-chart-data.model';
@@ -25,8 +25,8 @@ export default class WindChart extends React.Component<ChartProps, {}> {
     public render() {
         console.log('WindChart render');
         return (
-            <div className="wind-chart-container" ref={this.ref}>
-                <svg ref={this.svgRef} className='wind-chart'/>
+            <div className={styles['wind-chart-container']} ref={this.ref}>
+                <svg ref={this.svgRef} className={styles['wind-chart']}/>
             </div>
         );
     }
