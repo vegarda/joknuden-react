@@ -85,13 +85,13 @@ export default class WindInfo extends React.Component<IWindInfoProps, {}> {
 
     constructor(props: IWindInfoProps) {
         super(props);
-        const language = window.navigator.languages.find(l => this.supportedLanguages.indexOf(l) >= 0);
-        if (language) {
-            this.language = language;
-        }
-        if (this.language !== 'no') {
-            this.fromString = 'from';
-        }
+        // const language = window.navigator.languages.find(l => this.supportedLanguages.indexOf(l) >= 0);
+        // if (language) {
+        //     this.language = language;
+        // }
+        // if (this.language !== 'no') {
+        //     this.fromString = 'from';
+        // }
     }
 
     public render() {

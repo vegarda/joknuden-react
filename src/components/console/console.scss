@@ -1,15 +1,11 @@
 
-@import "../../variables";
+@import "../../scss/variables";
 
 .console-container {
-    width: calc(100% - 2em);
-    margin: 1em;
-    padding: 1em;
+    width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #ffffff;
-    box-shadow: $boxShadow;
 }
 
 .console-column {
@@ -49,4 +45,14 @@
     bottom: 0;
     position: absolute;
     color: rgba(255,255,255, 0.3)
+}
+
+@media (max-width: 1024px) {
+    .console-container {
+        flex-direction: column;
+    }
+
+    .console-column {
+        width: 100%;
+    }
 }
