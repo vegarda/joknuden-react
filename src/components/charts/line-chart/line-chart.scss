@@ -1,17 +1,49 @@
-.line-chart {
-    background-color: wheat;
+
+.line-chart-container {
+    width: 100%;
+    height: 100%;
+
+    // .tick {
+    //     shape-rendering: crispEdges;
+    //     line {
+    //         color: rgba(0, 0, 0, 0.1);
+    //     }
+    // }
+
+    .out-temp-axis {
+        .tick {
+            
+        }
+    }
+
+    
+    .line {
+        fill: none;
+        stroke: rgba(0, 0, 0, 0.8);
+        // stroke-width: 1px;
+    }
+
+    .out-temp-line {
+        fill: none;
+        stroke: rgba(0, 0, 0, 0.25);
+        stroke-width: 2;
+    }
+    
+    .out-temp-area {
+        fill: url(#outTempAreaGradient);
+    }
+
+    .bar-label {
+        color: rgba(0, 0, 0, 0);
+        font-size: 0.75em;
+        text-anchor: middle;
+
+        &:hover {
+            color: rgba(0, 0, 0, 0.8);
+        }
+    }
+
 }
 
-.line {
-    fill: none;
-    stroke: rgba(0, 0, 0, 0.8);
-    stroke-width: 1px;
-}
-
-.area-line {
-    fill: rgba(0, 0, 0, 0.2);
-    // stroke: rgba(0, 0, 0, 0.8);
-    // stroke-width: 1px;
-}
 
 

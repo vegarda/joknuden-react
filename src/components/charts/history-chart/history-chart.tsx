@@ -32,6 +32,9 @@ export default class HistoryChart extends React.Component<{}, {data: any}> {
             const response = await fetch('http://localhost:8080/api/archive/month/1');
             console.log(response);
             const data = await response.json();
+            data.forEach((d: any) => {
+                d.dateTime = new Date(d.dateTime * 1000);
+            });
             this.setState({ data })
         }
         catch (error) {

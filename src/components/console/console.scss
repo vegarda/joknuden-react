@@ -2,51 +2,53 @@
 @import "../../variables";
 
 .console-container {
-    width: calc(100% - 2em);
-    margin: 1em;
-    padding: 1em;
+    // width: calc(100% - 2em);
+    // margin: 1em;
+    // padding: 1em;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: #ffffff;
-    box-shadow: $boxShadow;
-}
+    // background-color: #ffffff;
+    // box-shadow: $boxShadow;
 
-.console-column {
-    flex: none;
-    width: 20%;
-    height: 12em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    position: relative;
-}
-
-.data-row {
-    font-size: 1.5em;
-    margin: 0.25em 0;
-    width: 8em;
-    display: flex;
-    justify-content: space-between;
-    height: 1.25em;
-    line-height: 1.25em;
-
-    .data-unit {
-        display: inline-flex;
-        width: 2em;
+    .console-column {
+        flex: none;
+        width: 20%;
+        height: 12em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        position: relative;
     }
-}
+    
+    .data-row {
+        font-size: 1.5em;
+        margin: 0.25em 0;
+        width: 8em;
+        display: flex;
+        justify-content: space-between;
+        height: 1.25em;
+        line-height: 1.25em;
+    
+        .data-unit {
+            display: inline-flex;
+            width: 2em;
+        }
+    }
+    
+    .thermometer {
+        font-size: 2em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .time {
+        bottom: 0;
+        position: absolute;
+        color: rgba(255,255,255, 0.3)
+    }
+    
 
-.thermometer {
-    font-size: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.time {
-    bottom: 0;
-    position: absolute;
-    color: rgba(255,255,255, 0.3)
 }
