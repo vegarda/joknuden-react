@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.dev.js",
+    "watch": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack"
   },
   "dependencies": {
@@ -17,7 +18,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "resolve": "^1.17.0",
-    "rxjs": "^6.5.5",
+    "rxjs": "^6.6.3",
     "weather-icons": "erikflowers/weather-icons",
     "whatwg-fetch": "^3.1.0"
   },
@@ -44,8 +45,10 @@
     "style-loader": "^1.2.1",
     "sw-precache-webpack-plugin": "^1.0.0",
     "ts-loader": "^7.0.5",
+    "tsc-watch": "^4.2.9",
     "tslint": "^6.1.2",
     "tslint-react": "^5.0.0",
+    "ts-node": "^9.0.0",
     "typescript": "^3.9.6",
     "url-loader": "^4.1.0",
     "webpack": "4.43.0",
