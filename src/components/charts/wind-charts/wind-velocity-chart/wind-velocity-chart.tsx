@@ -112,23 +112,25 @@ export default class WindVelocityChart extends React.Component<any, any> {
                 .style("font-size",14);
 
 
-            // g.append("g")
-            //     .selectAll(".axis")
-            //     .data(this.props.data)
-            //     .enter()
-            //     .append("g")
-            //     .attr("class", "axis")
-            //     .attr("transform", (d, i) => "rotate(" + (i * 360 / 16) + ")")
-            //     .call(
-            //         d3.axisLeft(
-            //             d3.scaleLinear()
-            //                 .range([0, outerRadius - 20])
-            //                 .domain([])
-            //         )
-            //         .tickSizeOuter(0)
-            //     )
-            //     .selectAll('.domain')
-            //     .style('shape-rendering', 'geometricprecision')
+            g.append("g")
+                // .selectAll(".axis")
+                .selectAll('g')
+                .data(this.props.data)
+                .enter()
+                .append("g")
+                .attr("class", "axis")
+                .attr("transform", (d, i) => "rotate(" + (i * 360 / 16) + ")")
+                .call(
+                    d3.axisLeft(
+                        d3.scaleLinear()
+                            .range([0, outerRadius - 20])
+                            .domain([])
+                    )
+                    .tickSizeOuter(0)
+                )
+                .selectAll('.domain')
+                .attr('strokeWidth', 0)
+                .style('shape-rendering', 'geometricprecision')
 
             var yAxis = g.append('g')
                 .attr('text-anchor', 'middle');

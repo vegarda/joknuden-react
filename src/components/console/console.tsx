@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 import styles from './console.scss';
+import panelStyles from './../main/panel/panel.scss';
+import weatherIconStyles from 'weather-icons/sass/weather-icons.scss';
 
 import IConsoleData from './console-data';
 import IConsoleState from './console.state';
@@ -34,28 +36,28 @@ export default class Console extends React.Component<{}, IConsoleState> {
     public render() {
         if (this.state.consoleData) {
             return (
-                <div className={styles['console-container panel']}>
+                <div className={`${styles['console-container']} ${panelStyles['panel']}`}>
                     <div className={styles['console-column']}>
                         <div className={styles['data-row']}>
-                            <i className={styles['wi wi-barometer']} />
+                            <i className={`${weatherIconStyles['wi']} ${weatherIconStyles['wi-barometer']}`} />
                             <span className={styles['data-value']}>{ this.numberFormat.format(this.state.consoleData.barometer) }</span>
                             <span className={styles['data-unit']}>hPa</span>
                         </div>
                         <div className={styles['data-row']}>
-                            <i className={styles['wi wi-humidity']} />
+                            <i className={`${weatherIconStyles['wi']} ${weatherIconStyles['wi-humidity']}`} />
                             <span className={styles['data-value']}>{ this.state.consoleData.outHumidity }</span>
                             <span className={styles['data-unit']}>%</span>
                         </div>
                         <div className={styles['data-row']}>
-                            <i className={styles['wi wi-rain']} />
-                            <span className={styles['data-value']}>{ this.state.consoleData.dayRain }</span>
+                            <i className={`${weatherIconStyles['wi']} ${weatherIconStyles['wi-rain']}`} />
+                            <span className={styles['data-value']}>{ this.numberFormat.format(this.state.consoleData.dayRain || 0) }</span>
                             <span className={styles['data-unit']}>mm</span>
                         </div>
                         <span className={styles['time']}>{ (new Date(this.state.consoleData.dateTime * 1000)).toLocaleTimeString(this.locale) }</span>
                     </div>
                     <div className={styles['console-column']}>
-                        <div className={styles['data-row thermometer']}>
-                            <i className={styles['wi wi-thermometer']} />
+                        <div className={`${styles['data-row']} ${styles['thermometer']}`}>
+                            <i className={`${weatherIconStyles['wi']} ${weatherIconStyles['wi-thermometer']}`} />
                             <span>{ this.numberFormat.format(this.state.consoleData.outTemp) } °C</span>
                         </div>
                     </div>
@@ -63,9 +65,9 @@ export default class Console extends React.Component<{}, IConsoleState> {
                         <WindCompass consoleData={this.state.consoleData} />
                     </div>
                     <WindInfo consoleData={this.state.consoleData} />
-                    <div className={styles['console-column']}>
+                    {/* <div className={styles['console-column']}>
                         <Webcam />
-                    </div>
+                    </div> */}
                 </div>
             )
         }

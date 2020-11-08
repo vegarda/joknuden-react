@@ -16,9 +16,9 @@ export default class Main extends React.Component {
         console.log(Console);
         return (
             <main className={styles['main-container']}>
-                {/* <Panel>
+                <Panel>
                     <Console />
-                </Panel> */}
+                </Panel>
                 <ArchiveCharts />
                 <WindCharts />
             </main>
