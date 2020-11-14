@@ -4,7 +4,7 @@ import './wind-charts.scss';
 
 import Panel from './../../main/panel/panel';
 import Container from './../../container/container';
-import WindVelocityChart from './wind-velocity-chart/wind-velocity-chart';
+import WindChart from './wind-velocity-chart/wind-chart';
 import { WindData } from 'src/models/wind-data.model';
 
 
@@ -12,7 +12,6 @@ export default class WindCharts extends React.Component<{}, any> {
 
 
     constructor(props: any) {
-        console.log('WindCharts constructor');
         super(props);
         // this.state = {
         //     windData: null
@@ -28,9 +27,9 @@ export default class WindCharts extends React.Component<{}, any> {
             return (
                 <Container>
                     <Panel>
-                        <WindVelocityChart unit="m/s" data={this.state.windData.windVelocity} />
-                        <WindVelocityChart unit="%" data={this.state.windData.windFrequency} />
-                        <WindVelocityChart unit="m/s" data={this.state.windData.windVector} />
+                        <WindChart unit="m/s" data={this.state.windData.windVelocity} />
+                        <WindChart unit="%" data={this.state.windData.windFrequency} />
+                        <WindChart unit="m/s" data={this.state.windData.windVector} />
                     </Panel>
                 </Container>
             );
@@ -39,12 +38,10 @@ export default class WindCharts extends React.Component<{}, any> {
     }
 
     private async getHistoryData() {
-        console.log('WindCharts getHistoryData');
+        // console.log('WindCharts.getHistoryData()');
         try {
-            const response = await fetch('http://localhost:8080/api/windrose/year/1');
-            console.log(response);
+            const response = await fetch('http://localhost:8080/api/windrose/month/1');
             const windData: WindData = await response.json();
-            console.log(windData);
             this.setState({ windData });
         }
         catch (error) {

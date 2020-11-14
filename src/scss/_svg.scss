@@ -4,14 +4,16 @@ svg {
     filter: drop-shadow($boxShadow);
 
     g.tick {
-        color: red;
+        // color: #616161;
 
         line {
-            color: orange;
+            stroke: rgba(0, 0, 0, 0.6);
+            stroke-width: 1px;
+            stroke-dasharray: 1em, 1em;
         }
 
         text {
-            color: purple;
+            // color: purple;
         }
     }
 
@@ -19,7 +21,7 @@ svg {
 
         &.line {
             fill: none;
-            stroke: #33333333;
+            stroke: rgba(0, 0, 0, 0.4);
             stroke-width: 2px;
         }
 
@@ -33,14 +35,14 @@ svg {
             stroke-width: 1px;
             shape-rendering: crispEdges;
         }
-        
+
         &.arc {
             fill: green;
         }
     }
 
     text {
-        color: #dddddddd;
+        color: inherit;
         fill: currentColor;
     }
 

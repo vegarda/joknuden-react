@@ -33,16 +33,16 @@ export default class ArchiveCharts extends React.Component<{}, ArchiveChartsStat
         return (
             <Container>
                 <Panel>
-                    <TemperatureChart chartOptions={this.state.chartProps.chartOptions} />
+                    <TemperatureChart label="Temperatur" chartOptions={this.state.chartProps.chartOptions} />
                 </Panel>
                 <Panel>
-                    <WindChart chartOptions={this.state.chartProps.chartOptions} />
+                    <WindChart label="Vind"chartOptions={this.state.chartProps.chartOptions} />
                 </Panel>
                 <Panel>
-                    <RainChart chartOptions={this.state.chartProps.chartOptions} />
+                    <RainChart label="Regn" chartOptions={this.state.chartProps.chartOptions} />
                 </Panel>
                 <Panel>
-                    <BarometerChart chartOptions={this.state.chartProps.chartOptions} />
+                    <BarometerChart label="Barometer" chartOptions={this.state.chartProps.chartOptions} />
                 </Panel>
             </Container>
         );
@@ -51,7 +51,7 @@ export default class ArchiveCharts extends React.Component<{}, ArchiveChartsStat
     private async getHistoryData() {
         console.log('ArchiveCharts getHistoryData');
         try {
-            const response = await fetch('http://localhost:8080/api/archive/day/5');
+            const response = await fetch('http://localhost:8080/api/archive/year/2');
             console.log(response);
             const data: ArchiveData[] = await response.json();
             const chartData: ArchiveChartData[] = data.map((d: ArchiveData) => {

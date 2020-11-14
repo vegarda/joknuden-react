@@ -1,14 +1,15 @@
-export class ArchiveData {
-    public barometer: number;
-    public dateTime: number;
-    public maxOutTemp: number;
-    public minOutTemp: number;
-    public outHumidity: number;
-    public outTemp: number;
-    public rain: number;
-    public rainRate: number;
-    public windDir: number;
-    public windGust: number;
-    public windGustDir: number;
-    public windSpeed: number;
+
+export interface ArchiveData {
+    barometer: number;
+    dateTime: number;
+    maxOutTemp: number;
+    minOutTemp: number;
+    outHumidity: number;
+    outTemp: number;
+    rain: number;
+    rainRate: number;
+    windDir: number;
+    windGust: number;
+    windGustDir: number;
+    windSpeed: number;
 }

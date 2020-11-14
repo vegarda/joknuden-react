@@ -10,10 +10,6 @@ import WindCharts from '../charts/wind-charts/wind-charts';
 export default class Main extends React.Component {
 
     public render() {
-        console.log('Main render');
-        const consolePanel = <Panel><Console /></Panel>
-        console.log(consolePanel);
-        console.log(Console);
         return (
             <main className={styles['main-container']}>
                 {/* <Panel>

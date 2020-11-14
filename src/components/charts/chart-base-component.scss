@@ -1,0 +1,23 @@
+
+$panelHeader: 3em;
+
+.chart-header {
+    flex: none;
+    height: $panelHeader;
+    display: flex;
+    align-items: center;
+    padding: 0 1em;
+}
+
+.chart-label {
+    font-size: 1.5em;
+}
+
+.chart {
+    height: 100%;
+    height: calc(100% - #{$panelHeader});
+
+    & ~ .chart-header {
+        height: calc(100% - #{$panelHeader});
+    }
+}

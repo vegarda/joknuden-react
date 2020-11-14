@@ -1,5 +1,5 @@
 import { ChartOptions } from "./chart-options.model";
 
-export class ChartProps {
-    public chartOptions: ChartOptions;
+export interface ChartProps extends PropsWithLabel {
+    chartOptions: ChartOptions;
 }

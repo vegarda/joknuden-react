@@ -1,5 +1,7 @@
 .wind-velocity-chart-container {
     height: calc(100vh - 10em);
+    width: calc(33vw - 10em);
+    max-width: 100%;
     // max-height: calc(100vh - 10em);
     // min-height: calc(100vh - 2em);
 }
