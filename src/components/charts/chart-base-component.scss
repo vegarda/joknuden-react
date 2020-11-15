@@ -13,11 +13,15 @@ $panelHeader: 3em;
     font-size: 1.5em;
 }
 
-.chart {
+.chart-container {
     height: 100%;
     height: calc(100% - #{$panelHeader});
 
     & ~ .chart-header {
         height: calc(100% - #{$panelHeader});
     }
+}
+
+.chart {
+    height: 100%;
 }

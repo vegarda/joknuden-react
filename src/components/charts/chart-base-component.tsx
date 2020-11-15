@@ -35,7 +35,7 @@ export class ChartBaseComponent<Props extends PropsWithLabel> extends React.Comp
 
     constructor(props: Props) {
         super(props);
-        console.log('ChartBaseComponent', props);
+        // console.log('ChartBaseComponent', props);
         this.ref = React.createRef();
         this.svgRef = React.createRef();
 
@@ -52,7 +52,7 @@ export class ChartBaseComponent<Props extends PropsWithLabel> extends React.Comp
     }
 
     public componentDidUpdate(): void {
-        this.drawChart();
+        this._drawChart();
     }
 
     public componentWillUnmount(): void {
@@ -74,9 +74,11 @@ export class ChartBaseComponent<Props extends PropsWithLabel> extends React.Comp
 
     public render(): JSX.Element {
         return (
-            <div className={ this.chartContainerClassName } ref={ this.ref }>
+            <div className={ this.chartContainerClassName }>
                 { this.renderLabel() }
-                <svg ref={ this.svgRef } className={ `${ styles['chart'] } ${ this.chartClassName }` }/>
+                <div className={ styles['chart-container'] } ref={ this.ref }>
+                    <svg ref={ this.svgRef } className={ `${ styles['chart'] } ${ this.chartClassName }` }/>
+                </div>
             </div>
         );
     }
@@ -86,23 +88,25 @@ export class ChartBaseComponent<Props extends PropsWithLabel> extends React.Comp
     }
 
     private _drawChart(): void {
+        // console.warn('_drawChart');
         this.clearSvg();
         this.setSvgMargins();
         this.drawChart();
     }
 
     protected clearSvg(): void {
-        console.log('clearSvg');
+        // console.log('clearSvg');
         this.svg.selectAll('*').remove();
     }
 
     protected setSvgMargins(): void {
-        console.log('setSvgMargins');
+        // console.log('setSvgMargins');
         const width = this.width;
         const height = this.height;
         this.svg.attr('width', width + this.margins.left + this.margins.right);
         this.svg.attr('height', height + this.margins.top + this.margins.bottom);
         this.svg.attr('viewBox', '0 0 ' + (width + this.margins.left + this.margins.right) + ' ' + (height + this.margins.top + this.margins.bottom));
+        this.svg.attr('preserveAspectRatio', 'xMidYMid');
     }
 
 }

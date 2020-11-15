@@ -1,9 +1,7 @@
 import * as React from 'react';
 
 import styles from './temperature-chart.scss';
-console.log(styles);
 import svgStyles from './../../../../scss/_svg.scss';
-console.log(svgStyles);
 
 import * as d3 from 'd3';
 import { ArchiveChartData } from 'src/models/archive-chart-data.model';
@@ -16,10 +14,10 @@ export default class TemperatureChart extends ChartBaseComponent<PropsWithLabel<
     protected chartClassName: string = styles['temperature-chart'];
 
     protected margins = {
-        top: 10,
-        right: 30,
-        bottom: 30,
-        left: 10,
+        top: 12,
+        right: 48,
+        bottom: 36,
+        left: 12,
     };
 
 
@@ -33,19 +31,18 @@ export default class TemperatureChart extends ChartBaseComponent<PropsWithLabel<
         const chartData = this.props.chartOptions.chartData;
         // console.log('chartData', chartData)
 
-        const margin = {
-            top: 10,
-            left: 10,
-            right: 50,
-            bottom: 30,
-        };
+        const margin = this.margins;
 
-        const width = this.ref.current.offsetWidth - margin.left - margin.right;
-        const height = this.ref.current.offsetHeight - margin.top - margin.bottom;
+        const width = this.width;
+        const height = this.height;
+
+        // console.log('width', width);
+        // console.log('height', height);
 
         const svg = this.svg;
 
         const container = svg.append('g');
+        container.attr('class', 'container');
         container.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
         // set the ranges
@@ -100,7 +97,6 @@ export default class TemperatureChart extends ChartBaseComponent<PropsWithLabel<
             .attr('class', svgStyles['line']);
 
         const yAxisTickFormat = (domainValue: number | Date | { valueOf(): number; }, index: number): string => {
-            console.log(domainValue);
             return `${domainValue} °C`;
         }
 
@@ -119,6 +115,10 @@ export default class TemperatureChart extends ChartBaseComponent<PropsWithLabel<
 
         const yAxisGroupTicks = yAxisGroup.selectAll('.tick');
         yAxisGroupTicks.attr('class', svgStyles['tick']);
+
+        const yAxisGroupTexts = yAxisGroup.selectAll('text');
+        yAxisGroupTexts.attr('x', '0.5em');
+        // yAxisGroupTexts.attr('dy', '0.5em');
 
         const firstDate =  chartData[0].dateTime;
         const secondDate =  chartData[1].dateTime;
@@ -139,8 +139,8 @@ export default class TemperatureChart extends ChartBaseComponent<PropsWithLabel<
             // year: 'numeric',
             // month: '2-digit',
             // day: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
+            // hour: '2-digit',
+            // minute: '2-digit',
         };
 
         // if (interval < 86400000) {
@@ -154,13 +154,17 @@ export default class TemperatureChart extends ChartBaseComponent<PropsWithLabel<
             dateTimeFormatOptions.month = '2-digit';
             dateTimeFormatOptions.day = '2-digit';
         }
+        if (length < 7 * 60 * 60 * 24 * 1000) {
+            dateTimeFormatOptions.hour = '2-digit';
+            dateTimeFormatOptions.minute = '2-digit';
+        }
 
         const xAxisTickFormat = (domainValue: number | Date | { valueOf(): number; }, index: number): string => {
             // console.log(domainValue);
             return Intl.DateTimeFormat(languages, dateTimeFormatOptions).format(domainValue as Date);
         }
 
-        let tickCount = Math.ceil(width / 300);
+        let tickCount = Math.ceil(width / 200);
         tickCount = Math.min(tickCount, chartData.length);
         tickCount = Math.max(tickCount, 2);
 

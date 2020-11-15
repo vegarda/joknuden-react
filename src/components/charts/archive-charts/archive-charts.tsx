@@ -8,53 +8,133 @@ import { ArchiveData } from 'src/models/archive-data.model';
 import RainChart from './rain-chart/rain-chart';
 import TemperatureChart from './temperature-chart/temperature-chart';
 import { ArchiveChartData } from 'src/models/archive-chart-data.model';
-import { ArchiveChartsState } from './archive-charts.state';
 import Container from './../../container/container';
 import WindChart from './wind-chart/wind-chart';
+import { ChartProps } from 'src/models/chart-props.model';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
+export interface ArchiveChartsState {
+    chartProps: ChartProps;
+    isFetching: boolean;
+    fetchFailed: boolean;
+    abortController?: AbortController;
+}
 
-export default class ArchiveCharts extends React.Component<{}, ArchiveChartsState> {
+export class ArchiveCharts extends React.Component<RouteComponentProps, ArchiveChartsState> {
 
-
-    constructor(props: any) {
+    constructor(props: RouteComponentProps) {
         console.log('ArchiveCharts constructor');
         super(props);
+        // this.props.history.listen((l) => {
+        //     console.log(l);
+        // })
         this.state = {
+            isFetching: false,
+            fetchFailed: false,
             chartProps: {
                 chartOptions: null
             }
         }
+    }
+
+    public shouldComponentUpdate(nextProps: Readonly<RouteComponentProps>, nextState: Readonly<ArchiveChartsState>, nextContext: any): boolean {
+        console.log('ArchiveCharts.shouldComponentUpdate()');
+        // console.log('props', this.props);
+        // console.log('nextProps', nextProps);
+        // console.log('state', this.state);
+        // console.log('nextState', nextState);
+        // console.log('nextContext', nextContext);
+
+        const stateIsNew = nextState !== this.state;
+        const propsAreNew = nextProps !== this.props;
+        // console.log('propsAreNew', propsAreNew);
+        // console.log('stateIsNew', stateIsNew);
+
+        if (propsAreNew) {
+            this.getHistoryData(nextProps);
+            return false;
+        }
+
+        // if (nextState.isFetching || nextState.fetchFailed) {
+        //     return true;
+        // }
+
+        return true;
+    }
+
+    public componentDidUpdate(): void {
+        console.log('ArchiveCharts.componentDidUpdate()');
+        // this.getHistoryData();
+    }
+
+    public componentDidMount(): void {
+        console.log('ArchiveCharts.componentDidMount()');
         this.getHistoryData();
     }
 
-
     public render() {
         console.log('ArchiveCharts render');
+        if (this.state.isFetching) {
+            return (
+                'loading....'
+            )
+        }
+        if (this.state.fetchFailed) {
+            return (
+                'error'
+            )
+        }
         return (
             <Container>
                 <Panel>
-                    <TemperatureChart label="Temperatur" chartOptions={this.state.chartProps.chartOptions} />
+                    <TemperatureChart label="Temperature" chartOptions={this.state.chartProps.chartOptions} />
+                </Panel>
+                {/* <Panel>
+                    <WindChart label="Wind"chartOptions={this.state.chartProps.chartOptions} />
                 </Panel>
                 <Panel>
-                    <WindChart label="Vind"chartOptions={this.state.chartProps.chartOptions} />
-                </Panel>
-                <Panel>
-                    <RainChart label="Regn" chartOptions={this.state.chartProps.chartOptions} />
+                    <RainChart label="Rain" chartOptions={this.state.chartProps.chartOptions} />
                 </Panel>
                 <Panel>
                     <BarometerChart label="Barometer" chartOptions={this.state.chartProps.chartOptions} />
-                </Panel>
+                </Panel> */}
             </Container>
         );
     }
 
-    private async getHistoryData() {
+    private async getHistoryData(props: Readonly<RouteComponentProps> = this.props) {
         console.log('ArchiveCharts getHistoryData');
+
+        if (this.state.abortController) {
+            console.warn('aborting');
+            this.state.abortController.abort();
+            console.log('aborted');
+        }
+
         try {
-            const response = await fetch('http://localhost:8080/api/archive/year/2');
+            let port: number = 80;
+            let hostname = window.location.hostname;
+            if (hostname === 'localhost') {
+                port = 8080;
+            }
+            console.log('location', props.location);
+            const apiRouteEndPoint = props.location.pathname;
+            const url = `http://${ hostname }:${ port }/api/archive${ apiRouteEndPoint }`;
+            const abortController = new AbortController();
+
+            this.setState({
+                isFetching: true,
+                fetchFailed: false,
+                abortController: abortController,
+            });
+
+            // setTimeout(() => abortController.abort(), 100);
+
+            const response = await fetch(url, { signal: abortController.signal });
             console.log(response);
+
             const data: ArchiveData[] = await response.json();
-            const chartData: ArchiveChartData[] = data.map((d: ArchiveData) => {
+            const chartData: ArchiveChartData[] = data.map<ArchiveChartData>((d: ArchiveData) => {
                 return {
                     barometer: d.barometer,
                     dateTime: new Date(d.dateTime * 1000),
@@ -72,6 +152,9 @@ export default class ArchiveCharts extends React.Component<{}, ArchiveChartsStat
             });
             console.log(chartData);
             this.setState({
+                isFetching: false,
+                fetchFailed: false,
+                abortController: null,
                 chartProps: {
                     chartOptions: {
                         chartData: chartData,
@@ -82,9 +165,18 @@ export default class ArchiveCharts extends React.Component<{}, ArchiveChartsStat
         }
         catch (error) {
             console.error(error);
+            this.setState({
+                isFetching: false,
+                fetchFailed: true,
+                abortController: null,
+                chartProps: null,
+            });
         }
     }
 
 
 }
+
+// export default ArchiveCharts;
+export default withRouter(ArchiveCharts);
 

@@ -11,5 +11,12 @@ module.exports = merge(config, {
         compress: true,
         inline: true,
         contentBase: path.join(__dirname, 'dist'),
+        // historyApiFallback: {
+        //     index: 'index.html',
+        // },
+        historyApiFallback: true,
+    },
+    output: {
+        publicPath: '/',
     },
 });
