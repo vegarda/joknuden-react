@@ -38,9 +38,10 @@ class Main extends React.Component<RouteOptionProps> {
     public render() {
         return (
             <main className={styles['main-container']}>
-                <Route path={ this.props.routeOptions.map(ro => ro.route) }>
+                <ArchiveCharts />
+                {/* <Route path={ this.props.routeOptions.map(ro => ro.route) }>
                     <ArchiveCharts />
-                </Route>
+                </Route> */}
                 {/* <Route>
                     <Panel>
                         <Console />

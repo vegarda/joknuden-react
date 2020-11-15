@@ -1,6 +1,8 @@
+
 .wind-chart-container {
     width: 100%;
-    height: 20em;
+    height: calc(100vh - 20em);
+    max-height: calc(100vh - 20em);
 }
 
 .wind-chart {

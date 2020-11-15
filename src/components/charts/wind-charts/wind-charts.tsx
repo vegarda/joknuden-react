@@ -27,9 +27,9 @@ export default class WindCharts extends React.Component<{}, any> {
             return (
                 <Container>
                     <Panel>
-                        <WindChart unit="m/s" data={this.state.windData.windVelocity} />
-                        <WindChart unit="%" data={this.state.windData.windFrequency} />
-                        <WindChart unit="m/s" data={this.state.windData.windVector} />
+                        <WindChart unit="m/s" chartData={ this.state.windData.windVelocity } />
+                        <WindChart unit="%" chartData={ this.state.windData.windFrequency } />
+                        <WindChart unit="m/s" chartData={ this.state.windData.windVector } />
                     </Panel>
                 </Container>
             );

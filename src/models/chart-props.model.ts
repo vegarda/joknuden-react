@@ -1,5 +1,7 @@
-import { ChartOptions } from "./chart-options.model";
 
-export interface ChartProps extends PropsWithLabel {
-    chartOptions: ChartOptions;
+export interface ChartProps<DataType = any> extends PropsWithLabel {
+    chartData: DataType[];
+    unit: string;
+    isFetching?: boolean;
+    fetchFailed?: boolean;
 }

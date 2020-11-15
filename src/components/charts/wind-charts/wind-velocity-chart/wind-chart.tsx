@@ -4,16 +4,16 @@ import svgStyles from './../../../../scss/_svg.scss';
 
 import * as d3 from 'd3';
 import { ChartBaseComponent } from '../../chart-base-component';
+import { ChartProps } from 'src/models/chart-props.model';
 
-export interface WindChartProps extends PropsWithLabel {
-    unit: string;
-    data: any[];
-}
+// export interface WindChartProps extends ChartProps<number> {
+//     unit: string;
+// }
 
-export default class WindChart extends ChartBaseComponent<WindChartProps> {
+export default class WindChart extends ChartBaseComponent {
 
-    protected chartContainerClassName: string = styles['wind-velocity-chart-container'];
-    protected chartClassName: string = styles['wind-velocity-chart'];
+    public readonly chartContainerClassName: string = styles['wind-velocity-chart-container'];
+    public readonly chartClassName: string = styles['wind-velocity-chart'];
 
     constructor(props: any) {
         super(props);
@@ -22,10 +22,10 @@ export default class WindChart extends ChartBaseComponent<WindChartProps> {
     protected drawChart(): void {
         console.log('WindVelocityChart drawChart');
 
-        const data = this.props.data;
+        const chartData = this.props.chartData;
         // console.log(data);
 
-        if (!data || data.length === 0) {
+        if (!chartData || chartData.length === 0) {
             return;
         }
 
@@ -43,13 +43,13 @@ export default class WindChart extends ChartBaseComponent<WindChartProps> {
 
         const y = d3.scaleLinear().range([innerRadius, outerRadius]);
 
-        y.domain([0, d3.max(data as number[])]);
+        y.domain([0, d3.max(chartData as number[])]);
 
         // data?
         const g2 = g.append('g');
         g2.attr('transform', `rotate(${ -360 / 32 })`);
 
-        const g2Paths = g2.selectAll('path').data(data).enter().append('path');
+        const g2Paths = g2.selectAll('path').data(chartData).enter().append('path');
         g2Paths.attr('class', svgStyles['arc']);
 
         const arc = d3.arc<any>();
@@ -65,7 +65,7 @@ export default class WindChart extends ChartBaseComponent<WindChartProps> {
         // rings
         var label = g.append('g')
             .selectAll('g')
-            .data(data)
+            .data(chartData)
             .enter()
             .append('g')
             .attr('text-anchor', 'middle')

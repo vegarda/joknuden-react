@@ -6,31 +6,40 @@ import { first } from 'rxjs/operators';
 import * as d3 from 'd3';
 
 import styles from './chart-base-component.scss';
+import { ChartProps } from 'src/models/chart-props.model';
 
-export class ChartBaseComponent<Props extends PropsWithLabel> extends React.Component<Props> {
+
+export class ChartBaseComponent<Props extends ChartProps = ChartProps> extends React.Component<Props> {
 
     protected onUnmount$: Subject<void> = new Subject();
 
     protected ref: React.RefObject<HTMLDivElement>;
     protected svgRef: React.RefObject<SVGSVGElement>;
-    protected svg: d3.Selection<SVGSVGElement, unknown, null, undefined>
 
-    protected chartContainerClassName: string;
-    protected chartClassName: string;
+    public svg: d3.Selection<SVGSVGElement, unknown, null, undefined>
 
-    protected margins = {
-        top: 30,
-        right: 30,
-        bottom: 30,
-        left: 30,
+    public readonly chartContainerClassName: string;
+    public readonly chartClassName: string;
+
+    public readonly margins = {
+        top: 12,
+        right: 84,
+        bottom: 36,
+        left: 24,
     };
 
-    protected get width(): number {
-        return this.ref.current.offsetWidth - this.margins.left - this.margins.right;
+    public get width(): number {
+        if (this.ref && this.ref.current) {
+            return this.ref.current.offsetWidth - this.margins.left - this.margins.right;
+        }
+        return 0;
     }
 
-    protected get height(): number {
-        return this.ref.current.offsetHeight - this.margins.top - this.margins.bottom;
+    public get height(): number {
+        if (this.ref && this.ref.current) {
+            return this.ref.current.offsetHeight - this.margins.top - this.margins.bottom;
+        }
+        return 0;
     }
 
     constructor(props: Props) {
@@ -49,6 +58,16 @@ export class ChartBaseComponent<Props extends PropsWithLabel> extends React.Comp
         }
         window.addEventListener('resize', onResize);
         this.onUnmount$.pipe(first()).subscribe(() => window.removeEventListener('resize', onResize));
+    }
+
+    public shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<any>, nextContext: any): boolean {
+        console.log('ChartBaseComponent.shouldComponentUpdate()');
+        console.log('props', this.props);
+        console.log('nextProps', nextProps);
+        // console.log('state', this.state);
+        // console.log('nextState', nextState);
+        // console.log('nextContext', nextContext);
+        return true;
     }
 
     public componentDidUpdate(): void {
@@ -72,10 +91,31 @@ export class ChartBaseComponent<Props extends PropsWithLabel> extends React.Comp
         return null;
     }
 
+    private renderStatus(): JSX.Element {
+        // console.log('renderStatus');
+        if (this.props.isFetching) {
+            return (
+                <span className="status loading">Loading...</span>
+            );
+        }
+        if (this.props.fetchFailed) {
+            return (
+                <span className="status error">Loading...</span>
+            );
+        }
+        if (!this.props.chartData || this.props.chartData.length === 0) {
+            return (
+                <span className="status no-data">No data</span>
+            );
+        }
+        return null;
+    }
+
     public render(): JSX.Element {
         return (
             <div className={ this.chartContainerClassName }>
                 { this.renderLabel() }
+                { this.renderStatus() }
                 <div className={ styles['chart-container'] } ref={ this.ref }>
                     <svg ref={ this.svgRef } className={ `${ styles['chart'] } ${ this.chartClassName }` }/>
                 </div>
@@ -95,7 +135,7 @@ export class ChartBaseComponent<Props extends PropsWithLabel> extends React.Comp
     }
 
     protected clearSvg(): void {
-        // console.log('clearSvg');
+        console.log('clearSvg');
         this.svg.selectAll('*').remove();
     }
 
