@@ -17,21 +17,11 @@ export default class TemperatureChart extends ChartBaseComponent<ChartProps<Arch
     public readonly chartContainerClassName: string = styles['temperature-chart-container'];
     public readonly chartClassName: string = styles['temperature-chart'];
 
-    // public readonly margins = {
-    //     top: 12,
-    //     right: 48,
-    //     bottom: 36,
-    //     left: 12,
-    // };
-
     protected drawChart(): void {
-
-        console.log('TemperatureChart drawChart');
 
         const chartData = this.props.chartData;
 
         if (!chartData || chartData.length === 0) {
-            console.warn(chartData);
             return;
         }
 
@@ -60,17 +50,20 @@ export default class TemperatureChart extends ChartBaseComponent<ChartProps<Arch
         linearGradient.attr('gradientUnits', 'userSpaceOnUse');
         linearGradient.attr('x1', 0).attr('y1', yAxisValueRange(-15));
         linearGradient.attr('x2', 0).attr('y2', yAxisValueRange(25));
-        linearGradient.selectAll('stop')
-                .data([
-                    { offset: '0%', color: '#2222ffdd' },
-                    { offset: '18.75%', color: '#2222ffaa' },
-                    { offset: '37.5%', color: '#cccccccc' },
-                    { offset: '56.25%', color: '#ff2222aa' },
-                    { offset: '100%', color: '#ff2222dd' },
-                ])
-            .enter().append('stop')
-            .attr('offset', (d: { offset: string, color: string }) =>  d.offset)
-            .attr('stop-color', (d: { offset: string, color: string }) => d.color);
+
+        const gradientStops = [
+            { offset: '0%', color: '#2222ffdd' },
+            { offset: '18.75%', color: '#2222ffaa' },
+            { offset: '37.5%', color: '#cccccccc' },
+            { offset: '56.25%', color: '#ff2222aa' },
+            { offset: '100%', color: '#ff2222dd' },
+        ];
+
+        gradientStops.forEach(gradientStops => {
+            const stop = linearGradient.append('stop');
+            stop.attr('offset', gradientStops.offset);
+            stop.attr('stop-color', gradientStops.color);
+        });
 
         graphGroup.append('path')
             .datum(chartData)

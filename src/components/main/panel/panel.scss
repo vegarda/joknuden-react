@@ -23,3 +23,10 @@
 .panel-label {
     font-size: 1.5em;
 }
+
+.panel-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    justify-content: space-around;
+}

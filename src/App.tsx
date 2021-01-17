@@ -5,7 +5,7 @@ import { BrowserRouter, Switch, Route, Link, NavLink, withRouter, RouteComponent
 
 import 'weather-icons/sass/weather-icons.scss';
 
-import styles from './App.scss';
+import styles from './app.scss';
 
 import Header from './components/header/header';
 import Main from './components/main/main';
@@ -64,10 +64,22 @@ class App extends React.Component<RouteOptionProps> {
             route: '/year/1',
             label: '1 Year',
         },
-        {
-            route: '/year/2019',
-            label: '2019',
-        },
+        // {
+        //     route: '/year/2020',
+        //     label: '2020',
+        // },
+        // {
+        //     route: '/year/2019',
+        //     label: '2019',
+        // },
+        // {
+        //     route: '/year/2018',
+        //     label: '2018',
+        // },
+        // {
+        //     route: '/year/2017',
+        //     label: '2017',
+        // },
     ];
 
 
@@ -85,10 +97,10 @@ class App extends React.Component<RouteOptionProps> {
 
     public render() {
         return (
-            <div className={styles['App']}>
+            <div className={styles['app']}>
                 <Header routeOptions={ this.routeOptions }/>
                 <Main routeOptions={ this.routeOptions } />
-                {/* <Footer/> */}
+                <Footer />
             </div>
         );
     }

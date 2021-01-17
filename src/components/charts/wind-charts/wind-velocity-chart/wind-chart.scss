@@ -1,11 +1,19 @@
-.wind-velocity-chart-container {
+
+.wind-rose-chart-container {
     height: calc(100vh - 10em);
     width: calc(33vw - 10em);
     max-width: 100%;
     // max-height: calc(100vh - 10em);
     // min-height: calc(100vh - 2em);
+
+
+    .chart-header {
+        justify-content: center;
+    }
+
 }
 
-.wind-velocity-chart {
+.wind-rose-chart {
 
 }
+

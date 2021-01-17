@@ -29,7 +29,9 @@ export default class Panel extends React.Component<React.PropsWithChildren<Panel
         return (
             <div className={styles['panel-container']}>
                 { this.renderLabel() }
-                { this.props.children }
+                <div className={styles['panel-content']}>
+                    { this.props.children }
+                </div>
             </div>
         )
     }

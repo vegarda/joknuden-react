@@ -9,24 +9,16 @@ import { ChartProps } from 'src/models/chart-props.model';
 import { ChartBaseComponent } from '../../chart-base-component';
 import { setUpArchiveChart } from '../archive-charts';
 
-export default class BarometerChart extends ChartBaseComponent {
+export default class BarometerChart extends ChartBaseComponent<ChartProps<ArchiveChartData>> {
 
     public readonly chartContainerClassName: string = styles['barometer-chart-container'];
     public readonly chartClassName: string = styles['barometer-chart'];
 
-    // constructor(props: any) {
-    //     super(props);
-    //     this.margins.right = 84;
-    // }
-
     protected drawChart(): void {
-
-        console.log('WindChart drawChart');
 
         const chartData = this.props.chartData;
 
         if (!chartData || chartData.length === 0) {
-            console.warn(chartData);
             return;
         }
 
@@ -39,7 +31,7 @@ export default class BarometerChart extends ChartBaseComponent {
 
         container.append('path')
             .datum(chartData)
-            .attr('d', barometerLine as any)
+            .attr('d', barometerLine)
             .attr('class', svgStyles['line']);
 
 

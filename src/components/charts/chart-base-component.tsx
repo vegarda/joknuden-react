@@ -51,8 +51,8 @@ export class ChartBaseComponent<Props extends ChartProps = ChartProps> extends R
     }
 
     public componentDidMount(): void {
-        this.svg = d3.select(this.svgRef.current);
-        this._drawChart();
+        // this.svg = d3.select(this.svgRef.current);
+        // this._drawChart();
         const onResize = () => {
             this._drawChart();
         }
@@ -60,18 +60,14 @@ export class ChartBaseComponent<Props extends ChartProps = ChartProps> extends R
         this.onUnmount$.pipe(first()).subscribe(() => window.removeEventListener('resize', onResize));
     }
 
-    public shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<any>, nextContext: any): boolean {
-        console.log('ChartBaseComponent.shouldComponentUpdate()');
-        console.log('props', this.props);
-        console.log('nextProps', nextProps);
-        // console.log('state', this.state);
-        // console.log('nextState', nextState);
-        // console.log('nextContext', nextContext);
-        return true;
-    }
-
     public componentDidUpdate(): void {
-        this._drawChart();
+        if (!this.svgRef.current && this.props.chartData && this.props.chartData.length > 0) {
+            this.forceUpdate();
+        }
+        else {
+            this.svg = d3.select(this.svgRef.current);
+            this._drawChart();
+        }
     }
 
     public componentWillUnmount(): void {
@@ -95,30 +91,37 @@ export class ChartBaseComponent<Props extends ChartProps = ChartProps> extends R
         // console.log('renderStatus');
         if (this.props.isFetching) {
             return (
-                <span className="status loading">Loading...</span>
+                <span className={ `${ styles['status'] } ${ styles['loading'] }` }>Loading...</span>
             );
         }
         if (this.props.fetchFailed) {
             return (
-                <span className="status error">Loading...</span>
+                <span className={ `${ styles['status'] } ${ styles['error'] }` }>Error...</span>
             );
         }
         if (!this.props.chartData || this.props.chartData.length === 0) {
             return (
-                <span className="status no-data">No data</span>
+                <span className={ `${ styles['status'] } ${ styles['no-data'] }` }>No data</span>
             );
         }
-        return null;
+        return (
+            <div className={ styles['chart-container'] } ref={ this.ref }>
+                <svg ref={ this.svgRef } className={ `${ styles['chart'] } ${ this.chartClassName }` }/>
+            </div>
+        )
+        // return null;
     }
 
     public render(): JSX.Element {
         return (
-            <div className={ this.chartContainerClassName }>
+            <div className={ `${ styles['container1'] } ${ this.chartContainerClassName }` }>
                 { this.renderLabel() }
-                { this.renderStatus() }
-                <div className={ styles['chart-container'] } ref={ this.ref }>
-                    <svg ref={ this.svgRef } className={ `${ styles['chart'] } ${ this.chartClassName }` }/>
+                <div className={ styles['container2'] }>
+                    { this.renderStatus() }
                 </div>
+                {/* <div className={ styles['chart-container'] } ref={ this.ref }>
+                    <svg ref={ this.svgRef } className={ `${ styles['chart'] } ${ this.chartClassName }` }/>
+                </div> */}
             </div>
         );
     }
@@ -135,7 +138,7 @@ export class ChartBaseComponent<Props extends ChartProps = ChartProps> extends R
     }
 
     protected clearSvg(): void {
-        console.log('clearSvg');
+        // console.log('clearSvg');
         this.svg.selectAll('*').remove();
     }
 

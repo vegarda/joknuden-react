@@ -12,18 +12,23 @@ import { ChartProps } from 'src/models/chart-props.model';
 
 export default class WindChart extends ChartBaseComponent {
 
-    public readonly chartContainerClassName: string = styles['wind-velocity-chart-container'];
-    public readonly chartClassName: string = styles['wind-velocity-chart'];
+    public readonly chartContainerClassName: string = styles['wind-rose-chart-container'];
+    public readonly chartClassName: string = styles['wind-rose-chart'];
+
+    public margins = {
+        top: 24,
+        left: 24,
+        right: 24,
+        bottom: 24,
+    };
 
     constructor(props: any) {
         super(props);
     }
 
     protected drawChart(): void {
-        console.log('WindVelocityChart drawChart');
 
         const chartData = this.props.chartData;
-        // console.log(data);
 
         if (!chartData || chartData.length === 0) {
             return;
@@ -58,7 +63,10 @@ export default class WindChart extends ChartBaseComponent {
         arc.outerRadius((d, i, j) => y(d));
         arc.startAngle((d, i) => ((i * 2 * Math.PI) / 16));
         arc.endAngle((d, i) => (((i + 1) * 2 * Math.PI) / 16));
-        arc.padAngle(Math.PI / 32);
+        // arc.padAngle(Math.PI / 32);
+        // arc.padAngle(Math.PI / 64);
+        arc.padAngle(Math.PI / 128);
+        // arc.padAngle(Math.PI / 256);
 
         g2Paths.attr('d', arc);
 

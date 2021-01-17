@@ -1,0 +1,64 @@
+
+
+.hilo {
+
+
+    table {
+
+        thead {
+
+            tr {
+
+                th {
+
+                }
+            }
+        }
+
+        tbody {
+
+            tr {
+
+                td {
+
+                }
+            }
+        }
+
+        tr {
+
+        }
+
+        th,
+        td {
+
+        }
+
+        th {
+
+        }
+
+        td {
+            padding: 0 0.5em;
+
+            &.what,
+            &.max,
+            &.maxtime,
+            &.avg,
+            &.min,
+            &.mintime {
+                // color: red;
+            }
+        }
+
+
+        .what,
+        .max,
+        .maxtime,
+        .avg,
+        .min,
+        .mintime {
+
+        }
+    }
+}

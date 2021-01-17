@@ -47,15 +47,15 @@ const config = {
                   {
                     loader: 'css-loader',
                     options: {
-                        modules: true,
-                        // modules: {
-                        //     // localIdentName: '[local]',
-                        //     mode: 'local',
-                        //     exportGlobals: true,
-                        //     localIdentName: '[path][name]__[local]--[hash:base64:5]',
-                        //     context: path.resolve(__dirname, 'src'),
-                        //     hashPrefix: 'my-custom-hash',
-                        // },
+                        // modules: true,
+                        modules: {
+                            mode: 'local',
+                            exportGlobals: true,
+                            localIdentName: '[local]',
+                            // localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                            // context: path.resolve(__dirname, 'src'),
+                            // hashPrefix: 'my-custom-hash',
+                        },
                     },
                   },
                   'sass-loader',

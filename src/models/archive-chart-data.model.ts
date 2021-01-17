@@ -8,6 +8,7 @@ export interface ArchiveChartData {
     outTemp: number;
     rain: number;
     rainRate: number;
+    rainAccum: number;
     windDir: number;
     windGust: number;
     windGustDir: number;

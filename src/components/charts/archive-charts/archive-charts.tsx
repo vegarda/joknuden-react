@@ -19,75 +19,38 @@ import { ChartBaseComponent } from '../chart-base-component';
 
 export interface ArchiveChartsState {
     chartData: ArchiveChartData[],
-    // chartOptions: ChartOptions;
-    // chartProps: ChartProps;
     isFetching: boolean;
     fetchFailed: boolean;
     abortController?: AbortController;
 }
 
-export class ArchiveCharts extends React.Component<RouteComponentProps, ArchiveChartsState> {
+class ArchiveCharts extends React.Component<RouteComponentProps, ArchiveChartsState> {
 
     constructor(props: RouteComponentProps) {
-        console.log('ArchiveCharts constructor');
         super(props);
-        // this.props.history.listen((l) => {
-        //     console.log(l);
-        // })
         this.state = {
             isFetching: false,
             fetchFailed: false,
             chartData: null,
+            abortController: null,
         }
+
     }
 
     public shouldComponentUpdate(nextProps: Readonly<RouteComponentProps>, nextState: Readonly<ArchiveChartsState>, nextContext: any): boolean {
-        console.log('ArchiveCharts.shouldComponentUpdate()');
-        // console.log('props', this.props);
-        // console.log('nextProps', nextProps);
-        // console.log('state', this.state);
-        console.log('nextState', nextState);
-        // console.log('nextContext', nextContext);
-
-        const stateIsNew = nextState !== this.state;
         const propsAreNew = nextProps !== this.props;
-        // console.log('propsAreNew', propsAreNew);
-        // console.log('stateIsNew', stateIsNew);
-
         if (propsAreNew) {
             this.getHistoryData(nextProps);
             return false;
         }
-
-        // if (nextState.isFetching || nextState.fetchFailed) {
-        //     return true;
-        // }
-
         return true;
     }
 
-    public componentDidUpdate(): void {
-        console.log('ArchiveCharts.componentDidUpdate()');
-        // this.getHistoryData();
-    }
-
     public componentDidMount(): void {
-        console.log('ArchiveCharts.componentDidMount()');
         this.getHistoryData();
     }
 
     public render() {
-        console.log('ArchiveCharts render');
-        // if (this.state.isFetching) {
-        //     return (
-        //         'loading....'
-        //     )
-        // }
-        // if (this.state.fetchFailed) {
-        //     return (
-        //         'error'
-        //     )
-        // }
         return (
             <Container>
                 <Panel>
@@ -99,26 +62,20 @@ export class ArchiveCharts extends React.Component<RouteComponentProps, ArchiveC
                 <Panel>
                     <BarometerChart label="Barometer" unit="hPa" {...this.state} />
                 </Panel>
-                {/* <Panel>
-                    <WindChart label="Wind" chartOptions={ this.state.chartProps.chartOptions } />
-                </Panel>
                 <Panel>
-                    <RainChart label="Rain" chartOptions={ this.state.chartProps.chartOptions } />
+                    <RainChart label="Rain" unit="mm" {...this.state} />
                 </Panel>
-                <Panel>
-                    <BarometerChart label="Barometer" chartOptions={ this.state.chartProps.chartOptions } />
-                </Panel> */}
             </Container>
         );
     }
 
     private async getHistoryData(props: Readonly<RouteComponentProps> = this.props) {
-        console.log('ArchiveCharts getHistoryData');
+        // console.log('ArchiveCharts getHistoryData');
 
         const currentStateAbortController = this.state.abortController;
 
         if (currentStateAbortController) {
-            console.warn('aborting');
+            console.warn('ArchiveCharts aborting');
             currentStateAbortController.abort();
         }
 
@@ -133,25 +90,25 @@ export class ArchiveCharts extends React.Component<RouteComponentProps, ArchiveC
                 port = 8080;
             }
 
-            const apiRouteEndPoint = props.location.pathname;
+            let apiRouteEndPoint = props.location.pathname;
+            if (!apiRouteEndPoint || apiRouteEndPoint === '/') {
+                apiRouteEndPoint = '/day/1';
+            }
+            console.log('apiRouteEndPoint', apiRouteEndPoint);
             const url = `http://${ hostname }:${ port }/api/archive${ apiRouteEndPoint }`;
 
-            console.log('setState1');
             this.setState({
                 isFetching: true,
                 fetchFailed: false,
                 abortController: newStateAbortController,
                 chartData: null,
             });
-            console.log('setState2');
-
-            // setTimeout(() => abortController.abort(), 100);
 
             const response = await fetch(url, { signal: newStateAbortController.signal });
             // console.log(response);
 
             const data: ArchiveData[] = await response.json();
-            const chartData: ArchiveChartData[] = data.map<ArchiveChartData>((d: ArchiveData) => {
+            const chartData: ArchiveChartData[] = data.map<ArchiveChartData>((d: ArchiveData, index: number, array: ArchiveData[]) => {
                 return {
                     barometer: d.barometer,
                     dateTime: new Date(d.dateTime * 1000),
@@ -161,13 +118,17 @@ export class ArchiveCharts extends React.Component<RouteComponentProps, ArchiveC
                     outTemp: d.outTemp,
                     rain: d.rain,
                     rainRate: d.rainRate,
+                    rainAccum: d.rain,
                     windDir: d.windDir,
                     windGust: d.windGust,
                     windGustDir: d.windGustDir,
                     windSpeed: d.windSpeed,
                 }
             });
-            console.log(chartData);
+            for (let i = 1; i < chartData.length; i++) {
+                chartData[i].rainAccum += chartData[i - 1].rainAccum;
+            }
+            // console.log(chartData);
             this.setState({
                 isFetching: false,
                 fetchFailed: false,
@@ -178,7 +139,10 @@ export class ArchiveCharts extends React.Component<RouteComponentProps, ArchiveC
         catch (error) {
             console.error(error);
             const isFetching = this.state.abortController !== newStateAbortController;
-            if (!isFetching) {
+            const fetchFailed = this.state.abortController !== currentStateAbortController;
+            console.log('isFetching', isFetching);
+            console.log('fetchFailed', fetchFailed);
+            if (!isFetching || fetchFailed) {
                 this.setState({
                     isFetching: false,
                     fetchFailed: true,
@@ -201,10 +165,11 @@ export function setUpArchiveChart(
     prop: keyof ArchiveChartData,
     minProp?: keyof ArchiveChartData,
     maxProp?: keyof ArchiveChartData
-): any {
-
-    console.log('TemperatureChart drawChart');
-    console.log(base.props);
+): {
+    container: d3.Selection<SVGGElement, unknown, null, undefined>,
+    xAxisTimeRange: d3.ScaleTime<number, number, never>,
+    yAxisValueRange: d3.ScaleLinear<number, number, never>,
+} {
 
     const chartData = base.props.chartData;
 
@@ -213,17 +178,15 @@ export function setUpArchiveChart(
         return null;
     }
 
-    // console.log('chartData', chartData)
-
     const margin = base.margins;
 
     const width = base.width;
     const height = base.height;
-    console.log('width', width);
-    console.log('height', height);
+    // console.log('width', width);
+    // console.log('height', height);
 
     const svg = base.svg;
-    console.log(svg);
+    // console.log(svg);
 
     const container = svg.append('g');
     container.attr('class', 'container');
@@ -233,14 +196,15 @@ export function setUpArchiveChart(
     const xAxisTimeRange = d3.scaleTime().range([0, width]);
     xAxisTimeRange.domain(d3.extent(chartData, d => d.dateTime ));
 
+
+
+
     const yAxisValueRange = d3.scaleLinear().range([height, 0]);
     const minValue = Math.floor(d3.min(chartData, d => d[minProp ||  prop] as number ) - 1);
     const maxValue = Math.ceil(d3.max(chartData, d => d[maxProp || prop] as number ) + 1)
     yAxisValueRange.domain([minValue, maxValue]);
 
-    const yAxisTickFormat = (domainValue: number | Date | { valueOf(): number; }, index: number): string => {
-        return `${ domainValue } ${ base.props.unit }`;
-    }
+    const yAxisTickFormat = (domainValue: number | Date | { valueOf(): number; }, index: number) => `${ domainValue } ${ base.props.unit }`;
 
     const _yAxis = d3.axisRight(yAxisValueRange);
     _yAxis.tickSize(-width);
@@ -249,7 +213,7 @@ export function setUpArchiveChart(
 
     const yAxisGroup = container.append('g');
     yAxisGroup.attr('class', 'y-axis');
-    yAxisGroup.attr('transform', 'translate(' + (width) + ', 0)')
+    yAxisGroup.attr('transform', 'translate(' + (width) + ', 0)');
     yAxisGroup.call(_yAxis);
     yAxisGroup.attr('font-size', null);
     yAxisGroup.attr('font-family', null);
@@ -264,6 +228,7 @@ export function setUpArchiveChart(
 
 
 
+
     const firstDate =  chartData[0].dateTime;
     const secondDate =  chartData[1].dateTime;
     const lastDate =  chartData[chartData.length - 1].dateTime;
@@ -271,27 +236,12 @@ export function setUpArchiveChart(
     const interval = secondDate.getTime() - firstDate.getTime();
     const length = lastDate.getTime() - firstDate.getTime();
 
-    // console.log(interval);
-    // console.log(length);
-
     const localeSuffix = '-u-hc-h23';
 
     const language = window.navigator.language + localeSuffix;
     const languages = window.navigator.languages.slice().map(l => l + localeSuffix);
 
-    const dateTimeFormatOptions: Intl.DateTimeFormatOptions = {
-        // year: 'numeric',
-        // month: '2-digit',
-        // day: '2-digit',
-        // hour: '2-digit',
-        // minute: '2-digit',
-    };
-
-    // if (interval < 86400000) {
-    //     delete dateTimeFormatOptions.day;
-    //     delete dateTimeFormatOptions.month;
-    //     delete dateTimeFormatOptions.year;
-    // }
+    const dateTimeFormatOptions: Intl.DateTimeFormatOptions = { };
 
     if (length > 60 * 60 * 24 * 1000) {
         dateTimeFormatOptions.year = 'numeric';
@@ -339,6 +289,8 @@ export function setUpArchiveChart(
     const axisBottomTexts = axisBottomGroup.selectAll('text');
     axisBottomTexts.attr('y', '1em');
     axisBottomTexts.attr('dy', '0.5em');
+
+
 
 
 
